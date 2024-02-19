@@ -6,7 +6,7 @@
 /*   By: glions <glions@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 14:41:45 by glions            #+#    #+#             */
-/*   Updated: 2024/02/19 12:49:39 by glions           ###   ########.fr       */
+/*   Updated: 2024/02/19 13:44:05 by glions           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,18 @@ int	main(int ac, char **av)
 	if (ac > 2)
 	{
 		ps->pile_a = parsing_1(ac, av);
-		pile_show(ps->pile_a);
 		if (!ps->pile_a)
 			return (print_error(), push_swap_free(ps), (1));
 	}
 	else
 	{
 		ps->pile_a = parsing_2(av[1]);
-		pile_show(ps->pile_a);
 		if (!ps->pile_a)
 			return (print_error(), push_swap_free(ps), (1));
 	}
-	push_swap_free(ps);
-	return (0);
+	if (pile_size(ps->pile_a) < 2)
+		return (print_error(), push_swap_free(ps), (1));
+	if (!test(ps))
+		return (print_error(), push_swap_free(ps), (1));
+	return (push_swap_free(ps), 0);
 }

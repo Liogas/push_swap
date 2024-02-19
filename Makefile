@@ -4,6 +4,7 @@ CFLAGS				=	-Wall -Werror -Wextra
 LIBFT				=	./libs/libft.a
 
 SRCS				= 	srcs/models/pile/*.c \
+						srcs/models/pile_instruction/*.c \
 						srcs/models/push_swap/*.c \
 						srcs/controllers/*.c \
 						srcs/controllers/parsing/*.c \

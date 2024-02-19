@@ -6,7 +6,7 @@
 /*   By: glions <glions@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 14:51:47 by glions            #+#    #+#             */
-/*   Updated: 2024/02/19 13:01:56 by glions           ###   ########.fr       */
+/*   Updated: 2024/02/19 16:25:55 by glions           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static int	verif_limit(char *str, int size, char *limit)
 {
-	int		size_max;
-	int		i;
+	int	size_max;
+	int	i;
 
 	size_max = ft_strlen(limit);
 	if (size > size_max)
@@ -34,24 +34,20 @@ static int	verif_limit(char *str, int size, char *limit)
 
 static int	verif_number(char *str, int size)
 {
-	int		sign;
-	int		i;
-	char	*min;
+	int	i;
 
 	i = 0;
-	min = "-2147483648";
+	if (size == 0)
+		return (0);
 	if (str[0] != '-' && !verif_limit(str, size, "2147483647"))
 		return (0);
 	if (str[0] == '-' && !verif_limit(str, size, "-2147483648"))
-		return (0);
-	sign = 0;
-	if (size == 0)
 		return (0);
 	while (str[i] && i < size)
 	{
 		if (str[i] == '-' && i > 0)
 			return (0);
-		else if ((str[i] != '-' && i == 0) && (str[i] <= '0' || str[i] >= '9'))
+		else if ((str[i] != '-' && i == 0) && (str[i] < '0' || str[i] > '9'))
 			return (0);
 		i++;
 	}
@@ -89,12 +85,13 @@ t_pile	*parsing_1(int ac, char **av)
 		{
 			new = pile_new(ft_atoi(av[i]));
 			if (!new)
-				return (pile_free(pile), NULL);
+				return (printf("error malloc new\n"), pile_free(pile), NULL);
 			if (!pile_addback(&pile, new))
-				return (free(new), pile_free(pile), NULL);
+				return (printf("error addback\n"), free(new), pile_free(pile),
+					NULL);
 		}
 		else
-			return (pile_free(pile), (NULL));
+			return (printf("error verif number\n"), pile_free(pile), (NULL));
 		i++;
 	}
 	return (pile);
