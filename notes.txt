@@ -1,7 +1,7 @@
 a		b
-5		
--9		
 574		
+-9		
+5	
 102		
 4		
 6		
@@ -9,10 +9,12 @@ a		b
 Attendu :
 -9  -> +1
 4   -> +3
-5   -> -2
+5   ->  0
 6   -> +2
 102 -> -1
-574 -> -3
+574 -> -5
+
+
 
 sa -> intervertit les 2 premiers pile A
 sb ->								  B
@@ -28,3 +30,10 @@ rr -> Les deux piles
 rra -> decale vers le bas pile A
 rrb -> 						   B
 rrr -> Les deux piles
+
+
+574 -9 5444 102 -4 6
+
+Premiere version :
+classe les plus grands dans la liste a -> Du plus petit au plus grand
+classe les plus petits dans la liste b -> Du plus grand au plus petit

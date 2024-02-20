@@ -6,7 +6,7 @@
 /*   By: glions <glions@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 12:14:55 by glions            #+#    #+#             */
-/*   Updated: 2024/02/20 13:20:24 by glions           ###   ########.fr       */
+/*   Updated: 2024/02/20 16:14:01 by glions           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ typedef struct s_push_swap
 {
 	t_pile			*pile_a;
 	t_pile			*pile_b;
-	t_pile			*pile_c;
 	int				nb_ins;
 }					t_push_swap;
 
@@ -62,5 +61,9 @@ void				reverse_rotate_b(t_pile **pb, int show);
 void				reverse_rotate_rrr(t_pile **pa, t_pile **pb, int show);
 
 int					test(t_push_swap *ps);
+
+void				sort_show(int *tab, int size);
+int					*sort_list(t_pile *p);
+
 
 #endif

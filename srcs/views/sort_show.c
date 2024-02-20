@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap_new.c                                    :+:      :+:    :+:   */
+/*   sort_show.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: glions <glions@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/19 11:53:06 by glions            #+#    #+#             */
-/*   Updated: 2024/02/20 16:00:38 by glions           ###   ########.fr       */
+/*   Created: 2024/02/20 16:01:06 by glions            #+#    #+#             */
+/*   Updated: 2024/02/20 16:05:19 by glions           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/push_swap.h"
+#include "../includes/push_swap.h"
 
-t_push_swap	*push_swap_new(void)
+void	sort_show(int *tab, int size)
 {
-	t_push_swap	*new;
+	int		i;
 
-	new = malloc(sizeof(t_push_swap));
-	if (!new)
-		return (NULL);
-	new->pile_a = NULL;
-	new->pile_b = NULL;
-	new->nb_ins = 0;
-	return (new);
+	i = 0;
+	while (i < size)
+	{
+		ft_putnbr_fd(tab[i], 1);
+		write(1, "\n", 1);
+		i++;
+	}
 }
