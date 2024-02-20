@@ -6,7 +6,7 @@
 /*   By: glions <glions@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 12:14:55 by glions            #+#    #+#             */
-/*   Updated: 2024/02/19 16:26:33 by glions           ###   ########.fr       */
+/*   Updated: 2024/02/20 13:20:24 by glions           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ typedef struct s_pile
 {
 	int				value;
 	struct s_pile	*next;
-	struct s_pile	*before;
 }					t_pile;
 
 typedef struct s_push_swap
 {
 	t_pile			*pile_a;
 	t_pile			*pile_b;
+	t_pile			*pile_c;
 	int				nb_ins;
 }					t_push_swap;
 
@@ -40,6 +40,7 @@ int					pile_addback(t_pile **pile, t_pile *new);
 void				pile_free(t_pile *pile);
 void				pile_show(t_pile *pile);
 int					pile_size(t_pile *p);
+t_pile				*pile_sort(t_pile *p);
 
 void				print_error(void);
 

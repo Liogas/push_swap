@@ -6,7 +6,7 @@
 /*   By: glions <glions@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 14:18:54 by glions            #+#    #+#             */
-/*   Updated: 2024/02/19 16:26:36 by glions           ###   ########.fr       */
+/*   Updated: 2024/02/20 12:20:03 by glions           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ t_pile	*pile_new(int nb)
 	new = malloc(sizeof(t_pile));
 	if (!new)
 		return (NULL);
-	new->before = NULL;
 	new->next = NULL;
 	new->value = nb;
 	return (new);

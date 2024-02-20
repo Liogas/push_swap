@@ -6,7 +6,7 @@
 /*   By: glions <glions@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 14:41:45 by glions            #+#    #+#             */
-/*   Updated: 2024/02/19 13:44:05 by glions           ###   ########.fr       */
+/*   Updated: 2024/02/20 13:20:30 by glions           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,9 @@ int	main(int ac, char **av)
 	}
 	if (pile_size(ps->pile_a) < 2)
 		return (print_error(), push_swap_free(ps), (1));
-	if (!test(ps))
-		return (print_error(), push_swap_free(ps), (1));
+	printf("Test pile_sort\n");
+	ps->pile_c = pile_sort(ps->pile_a);
+	if (ps->pile_c)
+		pile_show(ps->pile_c);	
 	return (push_swap_free(ps), 0);
 }

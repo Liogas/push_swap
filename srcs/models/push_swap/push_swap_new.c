@@ -6,7 +6,7 @@
 /*   By: glions <glions@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 11:53:06 by glions            #+#    #+#             */
-/*   Updated: 2024/02/19 16:26:29 by glions           ###   ########.fr       */
+/*   Updated: 2024/02/20 12:21:37 by glions           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_push_swap	*push_swap_new(void)
 		return (NULL);
 	new->pile_a = NULL;
 	new->pile_b = NULL;
+	new->pile_c = NULL;
 	new->nb_ins = 0;
 	return (new);
 }

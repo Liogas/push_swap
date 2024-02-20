@@ -1,0 +1,30 @@
+a		b
+5		
+-9		
+574		
+102		
+4		
+6		
+
+Attendu :
+-9  -> +1
+4   -> +3
+5   -> -2
+6   -> +2
+102 -> -1
+574 -> -3
+
+sa -> intervertit les 2 premiers pile A
+sb ->								  B
+ss -> Les deux piles
+
+pa -> premier pile B passe dans la A
+pb ->              A               B
+
+ra -> decale vers le haut pile A
+rb ->                          B
+rr -> Les deux piles
+
+rra -> decale vers le bas pile A
+rrb -> 						   B
+rrr -> Les deux piles
