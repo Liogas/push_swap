@@ -6,53 +6,43 @@
 /*   By: glions <glions@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 14:41:45 by glions            #+#    #+#             */
-/*   Updated: 2024/02/20 16:32:23 by glions           ###   ########.fr       */
+/*   Updated: 2024/02/21 19:19:31 by glions           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-
-static int	start_algo(t_push_swap *ps, int *exp)
-{
-	int	i;
-	int	size;
-	int	run;
-	t_pile	*tmp;
-
-	i = 0;
-	size = pile_size(ps->pile_a);
-	run = 1;
-	while (run)
-	{
-		while (pile_size(ps->pile_b) < size)
-		{
-			tmp = ps->pile_a;
-			while (tmp->value != exp[i])
-			{
-				
-			}
-		}
-	}
-}
-
 static int	algo(t_push_swap *ps)
 {
 	int	*sl;
-	int	i;
+	int	nb_ins;
 
 	sl = sort_list(ps->pile_a);
 	if (!sl)
 		return (0);
-	i = 0;
 	sort_show(sl, pile_size(ps->pile_a));
-	free(sl);
-	return (1);
+	if (pile_issort(ps->pile_a, sl))
+		return (free(sl), (0));
+	if (pile_size(ps->pile_a) == 2)
+	{
+		swap_a(&ps->pile_a, 1);
+		return (free(sl), 1);
+	}
+	if (pile_size(ps->pile_a) == 3)
+	{
+		nb_ins = small_algo_ps(ps, sl);
+		if (pile_issort(ps->pile_a, sl))
+			return (free(sl), nb_ins);
+		return (free(sl), 0);
+	}
+	return (free(sl), -1);
+	// return (free(sl), big_algo_ps(ps, sl));
 }
 
 int	main(int ac, char **av)
 {
 	t_push_swap	*ps;
+	int			nb_ins;
 
 	if (ac < 2)
 		return ((1));
@@ -73,7 +63,11 @@ int	main(int ac, char **av)
 	}
 	if (pile_size(ps->pile_a) < 2)
 		return (print_error(), push_swap_free(ps), (1));
-	if (!algo(ps))
+	nb_ins = algo(ps);
+	if (nb_ins == -1)
 		return (print_error(), push_swap_free(ps), (1));
+	printf("Apercu de la grille\n");
+	pile_show(ps->pile_a);
+	printf("Nombre d'instruction(s)->%d\n", nb_ins);
 	return (push_swap_free(ps), 0);
 }

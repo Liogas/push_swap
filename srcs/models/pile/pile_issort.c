@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pile_sort.c                                        :+:      :+:    :+:   */
+/*   pile_issort.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: glions <glions@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/20 12:16:48 by glions            #+#    #+#             */
-/*   Updated: 2024/02/20 15:34:12 by glions           ###   ########.fr       */
+/*   Created: 2024/02/21 18:05:37 by glions            #+#    #+#             */
+/*   Updated: 2024/02/21 18:33:40 by glions           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,34 +17,19 @@
 // 	return (a > b);
 // }
 
-t_pile	*pile_sort(t_pile *p)
+int	pile_issort(t_pile *p, int *exp)
 {
-	t_pile	*pile_c;
-	t_pile	*before;
-	t_pile	*tmp1;
-	t_pile	*next;
+	int		i;
+	t_pile	*pile;
 
-	pile_c = p;
-	tmp1 = pile_c;
-	before = NULL;
-	while (tmp1)
+	pile = p;
+	i = 0;
+	while (pile)
 	{
-		if (tmp1->next)
-		{
-			next = tmp1->next;
-			if (tmp1->value > next->value)
-			{
-				tmp1->next = next->next;	
-				next->next = tmp1;
-				if (before)
-					before->next = next;
-				if (tmp1->value == pile_c->value)
-					pile_c = next;
-				tmp1 = pile_c;
-			}
-		}
-		before = tmp1;
-		tmp1 = tmp1->next;
+		if (pile->value != exp[i])
+			return (0);
+		i++;
+		pile = pile->next;
 	}
-	return (pile_c);
+	return (1);
 }

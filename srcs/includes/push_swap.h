@@ -6,7 +6,7 @@
 /*   By: glions <glions@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 12:14:55 by glions            #+#    #+#             */
-/*   Updated: 2024/02/20 16:14:01 by glions           ###   ########.fr       */
+/*   Updated: 2024/02/21 18:54:48 by glions           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int					pile_addback(t_pile **pile, t_pile *new);
 void				pile_free(t_pile *pile);
 void				pile_show(t_pile *pile);
 int					pile_size(t_pile *p);
-t_pile				*pile_sort(t_pile *p);
+int					pile_issort(t_pile *p, int *exp);
 
 void				print_error(void);
 
@@ -64,6 +64,8 @@ int					test(t_push_swap *ps);
 
 void				sort_show(int *tab, int size);
 int					*sort_list(t_pile *p);
+
+int 				small_algo_ps(t_push_swap *ps, int *exp);
 
 
 #endif
