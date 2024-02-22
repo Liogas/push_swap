@@ -6,7 +6,7 @@
 /*   By: glions <glions@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 14:41:45 by glions            #+#    #+#             */
-/*   Updated: 2024/02/21 19:19:31 by glions           ###   ########.fr       */
+/*   Updated: 2024/02/22 20:21:42 by glions           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,11 @@ static int	algo(t_push_swap *ps)
 	sl = sort_list(ps->pile_a);
 	if (!sl)
 		return (0);
-	sort_show(sl, pile_size(ps->pile_a));
 	if (pile_issort(ps->pile_a, sl))
 		return (free(sl), (0));
 	if (pile_size(ps->pile_a) == 2)
 	{
-		swap_a(&ps->pile_a, 1);
+		ins_s(&ps->pile_a, 1);
 		return (free(sl), 1);
 	}
 	if (pile_size(ps->pile_a) == 3)
@@ -35,8 +34,7 @@ static int	algo(t_push_swap *ps)
 			return (free(sl), nb_ins);
 		return (free(sl), 0);
 	}
-	return (free(sl), -1);
-	// return (free(sl), big_algo_ps(ps, sl));
+	return (free(sl), big_algo_ps(ps));
 }
 
 int	main(int ac, char **av)
@@ -66,8 +64,5 @@ int	main(int ac, char **av)
 	nb_ins = algo(ps);
 	if (nb_ins == -1)
 		return (print_error(), push_swap_free(ps), (1));
-	printf("Apercu de la grille\n");
-	pile_show(ps->pile_a);
-	printf("Nombre d'instruction(s)->%d\n", nb_ins);
 	return (push_swap_free(ps), 0);
 }

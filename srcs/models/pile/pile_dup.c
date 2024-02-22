@@ -1,40 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pile_push.c                                        :+:      :+:    :+:   */
+/*   pile_dup.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: glions <glions@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/19 13:57:04 by glions            #+#    #+#             */
-/*   Updated: 2024/02/22 19:05:32 by glions           ###   ########.fr       */
+/*   Created: 2024/02/22 19:14:18 by glions            #+#    #+#             */
+/*   Updated: 2024/02/22 20:07:02 by glions           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/push_swap.h"
 
-static void	push(t_pile **p1, t_pile **p2)
+t_pile	*pile_dup(t_pile *p)
 {
-	t_pile	*first;
-
-	if (!*p1)
-		return ;
-	first = *p1;
-	*p1 = (*p1)->next;
-	first->next = *p2;
-	*p2 = first;
-	if ((*p2)->id_pile == 'a')
-		(*p2)->id_pile = 'b';
-	else
-		(*p2)->id_pile = 'a';
-}
-
-void	ins_p(t_pile **p_src, t_pile **p_dest, int show)
-{
-	push(p_src, p_dest);
-	if (show)
+	t_pile	*new_p;
+	t_pile	*tmp;
+	t_pile	*new;
+	
+	tmp = p;
+	new_p = pile_new(tmp->value, 'c');
+	if (!new_p)
+		return (NULL);
+	tmp = tmp->next;
+	while (tmp)
 	{
-		write(1, "p", 1);
-		write(1, &(*p_dest)->id_pile, 1);
-		write(1, "\n", 1);
+		new = pile_new(tmp->value, 'c');
+		if (!new)
+			return (pile_free(new_p), (NULL));
+		pile_addback(&new_p, new);
+		tmp = tmp->next;
 	}
+	return (new_p);
 }

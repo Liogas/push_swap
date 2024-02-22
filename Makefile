@@ -10,6 +10,7 @@ SRCS				= 	srcs/models/pile/*.c \
 						srcs/controllers/*.c \
 						srcs/controllers/parsing/*.c \
 						srcs/controllers/small_algo/*.c \
+						srcs/controllers/big_algo/*.c \
 						srcs/views/*.c
 
 NAME				=	push_swap

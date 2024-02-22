@@ -6,7 +6,7 @@
 /*   By: glions <glions@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 15:10:58 by glions            #+#    #+#             */
-/*   Updated: 2024/02/19 16:27:38 by glions           ###   ########.fr       */
+/*   Updated: 2024/02/22 20:08:30 by glions           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,24 +24,20 @@ static void	rotate(t_pile **p)
 	pile_addback(p, first);
 }
 
-void	rotate_a(t_pile **pa, int show)
+void	ins_r(t_pile **p, int show)
 {
-	rotate(pa);
+	rotate(p);
 	if (show)
-		write(1, "ra\n", 3);
+	{
+		write(1, "r", 1);
+		write(1, &(*p)->id_pile, 1);
+		write(1, "\n", 1);
+	}
 }
-
-void	rotate_b(t_pile **pb, int show)
+void	ins_r_all(t_pile **p1, t_pile **p2, int show)
 {
-	rotate(pb);
-	if (show)
-		write(1, "rb\n", 3);
-}
-
-void	rotate_rr(t_pile **pa, t_pile **pb, int show)
-{
-	rotate(pa);
-	rotate(pb);
+	rotate(p1);
+	rotate(p2);
 	if (show)
 		write(1, "rr\n", 3);
 }

@@ -6,7 +6,7 @@
 /*   By: glions <glions@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 14:51:47 by glions            #+#    #+#             */
-/*   Updated: 2024/02/19 16:25:55 by glions           ###   ########.fr       */
+/*   Updated: 2024/02/22 19:04:24 by glions           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ t_pile	*parsing_1(int ac, char **av)
 	{
 		if (verif_number(av[i], ft_strlen(av[i])))
 		{
-			new = pile_new(ft_atoi(av[i]));
+			new = pile_new(ft_atoi(av[i]), 'a');
 			if (!new)
 				return (printf("error malloc new\n"), pile_free(pile), NULL);
 			if (!pile_addback(&pile, new))
@@ -112,7 +112,7 @@ t_pile	*parsing_2(char *str)
 		{
 			if (get_next(str + i, &i, &nb))
 			{
-				new = pile_new(nb);
+				new = pile_new(nb, 'a');
 				if (!new)
 					return (pile_free(pile), (NULL));
 				if (!pile_addback(&pile, new))

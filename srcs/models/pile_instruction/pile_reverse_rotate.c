@@ -6,7 +6,7 @@
 /*   By: glions <glions@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 15:18:39 by glions            #+#    #+#             */
-/*   Updated: 2024/02/19 16:27:41 by glions           ###   ########.fr       */
+/*   Updated: 2024/02/22 20:07:53 by glions           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,40 +14,36 @@
 
 static void	reverse_rotate(t_pile **p)
 {
-	t_pile	*last;
 	t_pile	*previous;
+	t_pile	*tmp;
 
-	last = *p;
-	previous = NULL;
-	while (last->next)
+	tmp = *p;
+	while (tmp->next)
 	{
-		previous = last;
-		last = last->next;
+		previous = tmp;
+		tmp = tmp->next;	
 	}
-	if (previous)
-		previous->next = NULL;
-	last->next = *p;
-	*p = last;
+	previous->next = 0;
+	tmp->next = *p;
+	*p = tmp;
+	
 }
 
-void	reverse_rotate_a(t_pile **pa, int show)
+void	ins_rr(t_pile **p, int show)
 {
-	reverse_rotate(pa);
+	reverse_rotate(p);
 	if (show)
-		write(1, "rra\n", 4);
+	{
+		write(1, "rr", 2);
+		write(1, &(*p)->id_pile, 1);
+		write(1, "\n", 1);
+	}
 }
 
-void	reverse_rotate_b(t_pile **pb, int show)
+void	ins_rr_all(t_pile **p1, t_pile **p2, int show)
 {
-	reverse_rotate(pb);
-	if (show)
-		write(1, "rrb\n", 4);
-}
-
-void	reverse_rotate_rrr(t_pile **pa, t_pile **pb, int show)
-{
-	reverse_rotate(pa);
-	reverse_rotate(pb);
+	reverse_rotate(p1);
+	reverse_rotate(p2);
 	if (show)
 		write(1, "rrr\n", 4);
 }

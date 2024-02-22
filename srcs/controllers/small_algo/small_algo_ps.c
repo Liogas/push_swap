@@ -6,7 +6,7 @@
 /*   By: glions <glions@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 18:46:21 by glions            #+#    #+#             */
-/*   Updated: 2024/02/21 19:16:22 by glions           ###   ########.fr       */
+/*   Updated: 2024/02/22 18:59:08 by glions           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,20 +71,20 @@ int small_algo_ps(t_push_swap *ps, int *sl)
     if (!moove)
         return (-1);
     if (moove[0] == 0)
-        return (reverse_rotate_a(&ps->pile_a, 1),
-            swap_a(&ps->pile_a, 1), free(moove), (2));
+        return (ins_rr(&ps->pile_a, 1),
+            ins_s(&ps->pile_a, 1), free(moove), (2));
     if (moove[0] == -1)
     {
-        rotate_a(&ps->pile_a, 1);
+        ins_r(&ps->pile_a, 1);
         if (!pile_issort(ps->pile_a, sl))
-            return (free(moove), swap_a(&ps->pile_a, 1), (2));
+            return (free(moove), ins_s(&ps->pile_a, 1), (2));
         return (free(moove), 1);
     }
     if (moove[0] == 1)
     {
         if (moove[2] == 0)
-            return (free(moove), swap_a(&ps->pile_a, 1), (1));
-        return (free(moove), reverse_rotate_a(&ps->pile_a, 1), (1));
+            return (free(moove), ins_s(&ps->pile_a, 1), (1));
+        return (free(moove), ins_r(&ps->pile_a, 1), (1));
     }
     return (-1);
 }
