@@ -6,7 +6,7 @@
 /*   By: glions <glions@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 12:14:55 by glions            #+#    #+#             */
-/*   Updated: 2024/02/22 19:19:23 by glions           ###   ########.fr       */
+/*   Updated: 2024/02/23 18:54:46 by glions           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ typedef struct s_push_swap
 {
 	t_pile			*pile_a;
 	t_pile			*pile_b;
+	int				pile_a_s;
+	int				pile_b_s;
 	int				nb_ins;
 }					t_push_swap;
 
@@ -42,15 +44,18 @@ void				pile_show(t_pile *pile);
 int					pile_size(t_pile *p);
 int					pile_issort(t_pile *p, int *exp);
 t_pile				*pile_dup(t_pile *p);
+int					pile_getpos(int target, t_pile *p);
 
 void				print_error(void);
 
 void				push_swap_free(t_push_swap *ps);
 t_push_swap			*push_swap_new(void);
+void				push_swap_update_size(t_push_swap *ps);
 
 void				ins_s(t_pile **p, int show);
 void				ins_s_all(t_pile **p1, t_pile **p2, int show);
 
+void				ps_ins_p(t_push_swap *ps, int show, int mode);
 void				ins_p(t_pile **p_src, t_pile **p_dest, int show);
 
 void				ins_r(t_pile **p, int show);

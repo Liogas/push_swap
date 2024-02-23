@@ -6,7 +6,7 @@
 /*   By: glions <glions@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 13:57:04 by glions            #+#    #+#             */
-/*   Updated: 2024/02/22 19:05:32 by glions           ###   ########.fr       */
+/*   Updated: 2024/02/23 18:54:08 by glions           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,13 @@ void	ins_p(t_pile **p_src, t_pile **p_dest, int show)
 		write(1, &(*p_dest)->id_pile, 1);
 		write(1, "\n", 1);
 	}
+}
+
+void	ps_ins_p(t_push_swap *ps, int show, int mode)
+{
+	if (mode == 0)
+		ins_p(&ps->pile_a, &ps->pile_b, show);
+	else
+		ins_p(&ps->pile_b, &ps->pile_a, show);
+	push_swap_update_size(ps);
 }

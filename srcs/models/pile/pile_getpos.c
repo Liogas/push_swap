@@ -1,28 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap_new.c                                    :+:      :+:    :+:   */
+/*   pile_getpos.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: glions <glions@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/19 11:53:06 by glions            #+#    #+#             */
-/*   Updated: 2024/02/23 13:35:56 by glions           ###   ########.fr       */
+/*   Created: 2024/02/23 13:42:19 by glions            #+#    #+#             */
+/*   Updated: 2024/02/23 13:46:50 by glions           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/push_swap.h"
 
-t_push_swap	*push_swap_new(void)
+int	pile_getpos(int target, t_pile *p)
 {
-	t_push_swap	*new;
+	int		i;
+	t_pile	*tmp;
 
-	new = malloc(sizeof(t_push_swap));
-	if (!new)
-		return (NULL);
-	new->pile_a = NULL;
-	new->pile_b = NULL;
-	new->pile_a_s = 0;
-	new->pile_b_s = 0;
-	new->nb_ins = 0;
-	return (new);
+	i = 1;
+	tmp = p;
+	while (tmp)
+	{
+		if (tmp->value == target)
+			return (i);
+		i++;
+		tmp = tmp->next;
+	}
+	return (-1);
 }

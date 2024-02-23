@@ -1,28 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap_new.c                                    :+:      :+:    :+:   */
+/*   push_swap_set_size.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: glions <glions@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/19 11:53:06 by glions            #+#    #+#             */
-/*   Updated: 2024/02/23 13:35:56 by glions           ###   ########.fr       */
+/*   Created: 2024/02/23 13:36:10 by glions            #+#    #+#             */
+/*   Updated: 2024/02/23 13:37:48 by glions           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/push_swap.h"
 
-t_push_swap	*push_swap_new(void)
+void	push_swap_update_size(t_push_swap *ps)
 {
-	t_push_swap	*new;
-
-	new = malloc(sizeof(t_push_swap));
-	if (!new)
-		return (NULL);
-	new->pile_a = NULL;
-	new->pile_b = NULL;
-	new->pile_a_s = 0;
-	new->pile_b_s = 0;
-	new->nb_ins = 0;
-	return (new);
+	ps->pile_a_s = pile_size(ps->pile_a);
+	ps->pile_b_s = pile_size(ps->pile_b);
 }

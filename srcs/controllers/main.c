@@ -6,14 +6,14 @@
 /*   By: glions <glions@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 14:41:45 by glions            #+#    #+#             */
-/*   Updated: 2024/02/22 20:21:42 by glions           ###   ########.fr       */
+/*   Updated: 2024/02/23 18:36:21 by glions           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
 static int	algo(t_push_swap *ps)
-{
+{	
 	int	*sl;
 	int	nb_ins;
 
@@ -40,7 +40,6 @@ static int	algo(t_push_swap *ps)
 int	main(int ac, char **av)
 {
 	t_push_swap	*ps;
-	int			nb_ins;
 
 	if (ac < 2)
 		return ((1));
@@ -59,10 +58,10 @@ int	main(int ac, char **av)
 		if (!ps->pile_a)
 			return (print_error(), push_swap_free(ps), (1));
 	}
-	if (pile_size(ps->pile_a) < 2)
+	push_swap_update_size(ps);
+	if (ps->pile_a_s < 2)
 		return (print_error(), push_swap_free(ps), (1));
-	nb_ins = algo(ps);
-	if (nb_ins == -1)
+	if (algo(ps) == -1)
 		return (print_error(), push_swap_free(ps), (1));
 	return (push_swap_free(ps), 0);
 }

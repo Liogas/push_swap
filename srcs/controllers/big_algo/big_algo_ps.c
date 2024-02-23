@@ -6,7 +6,7 @@
 /*   By: glions <glions@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 17:41:46 by glions            #+#    #+#             */
-/*   Updated: 2024/02/22 20:13:03 by glions           ###   ########.fr       */
+/*   Updated: 2024/02/23 18:59:11 by glions           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	get_target(t_pile *p1, t_pile *p2)
 	while (tmp)
 	{
 		if (p1->value < tmp->value &&
-			(find == 0 || (find == 1 && tmp->value < target)))
+			(find == 0 || (find == 1 && tmp->value > target)))
 			{
 				target = tmp->value;
 				find = 1;
@@ -55,46 +55,188 @@ static int	get_min_pile(t_pile *p)
 	return (min);
 }
 
-static int	nb_ins_top(int target, int mode, t_pile *p)
+static int	ins_nb_top(int target, int mode, t_pile *p)
 {
-	t_pile *tmp;
-	int		i;
+	int		pos;
 
-	tmp = pile_dup(p);
-	if (!tmp)
-		return (999999);
-	i = 0;
-	while (tmp->value != target)
-	{
-		if (mode == 1)
-			ins_r(&tmp, 0);
-		else if (mode == 2)
-			ins_rr(&tmp, 0);
-		i++;
-	}
-	pile_free(tmp);
-	return (i);
+	pos = pile_getpos(target, p);
+	if (mode == 1)
+		return (pos - 1);
+	else
+		return ((pile_size(p) + 1) - pos);
 }
 
-static int	next_moove(t_pile **p1, t_pile **p2)
+static int	ins_same(int target[2], int mode, t_pile *p1, t_pile *p2)
 {
-	int	target;
-	int	nb_ins;
+	int	ins_p1;
+	int	ins_p2;
+	int	ins_tot;
 
-	target = get_target(*p1, *p2);
-	nb_ins = 0;
-	while ((*p2)->value != target)
+	ins_p1 = ins_nb_top(target[0], mode, p1);
+	ins_p2 = ins_nb_top(target[1], mode, p2);
+	ins_tot = ins_p1 - ins_p2;
+	if (ins_tot < 0)
+		ins_tot = (ins_tot * -1) + ins_p1;
+	else
+		ins_tot += ins_p2;
+	return (ins_tot);
+}
+static int	get_ins_nb(int t1, int t2, t_pile *p1, t_pile *p2)
+{
+	int	ins_nb;
+	int	targets[2];
+
+	ins_nb = ins_nb_top(t1, 1, p1) + ins_nb_top(t2, 1, p2);
+	targets[0] = t1;
+	targets[1] = t2;
+	if (ins_nb_top(t1, 1, p1) + ins_nb_top(t2, 2, p2) < ins_nb)
+		ins_nb = ins_nb_top(t1, 1, p1) + ins_nb_top(t2, 2, p2);
+	if (ins_nb_top(t1, 2, p1) + ins_nb_top(t2, 1, p2) < ins_nb)
+		ins_nb = ins_nb_top(t1, 2, p1) + ins_nb_top(t2, 1, p2);
+	if (ins_nb_top(t1, 2, p1) + ins_nb_top(t2, 2, p2) < ins_nb)
+		ins_nb = ins_nb_top(t1, 2, p1) + ins_nb_top(t2, 2, p2);
+	if (ins_same(targets, 1, p1, p2) < ins_nb)
+		ins_nb = ins_same(targets, 1, p1, p2);
+	if (ins_same(targets, 2, p1, p2) < ins_nb)
+		ins_nb = ins_same(targets, 2, p1, p2);
+	return (ins_nb);
+}
+
+static int	*get_ins_mode(int t1, int t2, t_pile *p1, t_pile *p2)
+{
+	int	ins_nb;
+	int	targets[2];
+	int	*mode;
+
+	mode = malloc(2 * sizeof(int));
+	if (!mode)
+		return (NULL);
+	ins_nb = ins_nb_top(t1, 1, p1) + ins_nb_top(t2, 1, p2);
+	mode[0] = 0;
+	mode[1] = 0;
+	targets[0] = t1;
+	targets[1] = t2;
+	if (ins_nb_top(t1, 1, p1) + ins_nb_top(t2, 2, p2) < ins_nb)
 	{
-		if (nb_ins_top(target, 1, *p2) <= nb_ins_top(target, 1, *p2))
-			ins_r(p2, 1);
+		ins_nb = ins_nb_top(t1, 1, p1) + ins_nb_top(t2, 2, p2);
+		mode[1] = 1;
+	}
+	if (ins_nb_top(t1, 2, p1) + ins_nb_top(t2, 1, p2) < ins_nb)
+	{
+		ins_nb = ins_nb_top(t1, 2, p1) + ins_nb_top(t2, 1, p2);
+		mode[0] = 1;
+		mode[1] = 0; 
+	}
+	if (ins_nb_top(t1, 2, p1) + ins_nb_top(t2, 2, p2) < ins_nb)
+	{
+		ins_nb = ins_nb_top(t1, 2, p1) + ins_nb_top(t2, 2, p2);
+		mode[0] = 1;
+		mode[1] = 1;
+	}
+	if (ins_same(targets, 1, p1, p2) < ins_nb)
+	{
+		ins_nb = ins_same(targets, 1, p1, p2);
+		mode[0] = 2;
+	}
+	if (ins_same(targets, 2, p1, p2) < ins_nb)
+	{
+		ins_nb = ins_same(targets, 2, p1, p2);
+		mode[0] = 3;
+	}
+	return (mode);
+}
+
+static void	mooves_p(t_pile **p, int t, int mode)
+{
+	while ((*p)->value != t)
+	{
+		if (mode == 0)
+			ins_r(p, 1);
 		else
-			ins_rr(p2, 1);
-		nb_ins++;
+			ins_rr(p, 1);
 	}
-	ins_p(p1, p2, 1);
-	return (nb_ins + 1);
 }
 
+static void	mooves(int t1, int t2, t_pile **p1, t_pile **p2)
+{
+	int		*mode;
+
+	// printf("Entrée dans mooves\n");
+	mode = get_ins_mode(t1, t2, *p1, *p2);
+	// printf("Target(p1)->%d;Target(p2)->%d\n", t1, t2);
+	if (!mode)
+		return ;
+	if (mode[0] == 0 || mode[0] == 1)
+		(mooves_p(p1, t1, mode[1]), mooves_p(p2, t2, mode[1]));
+	else if (mode[0] == 2 || mode[0] == 3)
+	{
+		while ((*p1)->value != t1 && (*p2)->value != t2)
+		{
+			if (mode[0] == 3)
+				ins_r_all(p1, p2, 1);
+			else
+				ins_rr_all(p1, p2, 1);
+		}
+		if (ins_nb_top(t1, 1, *p1) != 0)
+		{
+			if (ins_nb_top(t1, 1, *p1) < ins_nb_top(t1, 2, *p1))
+				mooves_p(p1, t1, 0);
+			else
+				mooves_p(p1, t1, 1);
+		}	
+		else
+		{
+			if (ins_nb_top(t2, 1, *p2) < ins_nb_top(t2, 2, *p2))
+				mooves_p(p2, t2, 0);
+			else
+				mooves_p(p2, t2, 1);
+		}
+	}
+	// printf("Sortie de mooves\n");
+	free(mode);
+}
+
+static int	next_moove(t_push_swap *ps, int mode)
+{
+	t_pile	*p1;
+	t_pile	*p2;
+	t_pile	*tmp;
+	t_pile	*winner;
+	long	ins_min;
+	int		target;
+	int		ins_nb;
+
+	if (mode == 0)
+	{
+		p1 = ps->pile_a;
+		p2 = ps->pile_b;
+	}
+	else
+	{
+		p1 = ps->pile_b;
+		p2 = ps->pile_a;
+	}
+	ins_min = 2147483647;
+	tmp = p1;
+	while (tmp)
+	{
+		target = get_target(tmp, p2);
+		ins_nb = get_ins_nb(tmp->value, target, p1, p2);
+		if (ins_nb < ins_min)
+		{
+			winner = tmp;
+			if (ins_nb == 1)
+				break;
+			ins_min = ins_nb;
+		}
+		tmp = tmp->next;
+	}
+	if (mode == 0)
+		mooves(winner->value, target, &ps->pile_a, &ps->pile_b);
+	else
+		mooves(winner->value, target, &ps->pile_b, &ps->pile_a);
+	return (ps_ins_p(ps, 1, mode), ins_min);
+}
 static int	last_moove(t_pile **p)
 {
 	int	i;
@@ -106,7 +248,7 @@ static int	last_moove(t_pile **p)
 	i = 0;
 	while ((*p)->value != target)
 	{
-		if (nb_ins_top(target, 1, *p) < nb_ins_top(target, 2, *p))
+		if (ins_nb_top(target, 1, *p) < ins_nb_top(target, 2, *p))
 		{
 			ins_r(p, 1);
 			i++;
@@ -126,22 +268,28 @@ int	big_algo_ps(t_push_swap *ps)
 	int	*sl2;
 	int	tmp;
 
+	// printf("Entrée dans l'algo\n");
 	nb_ins = 0;
-	ins_p(&ps->pile_a, &ps->pile_b, 1);
-	ins_p(&ps->pile_a, &ps->pile_b, 1);
+	ps_ins_p(ps, 1, 0);
+	ps_ins_p(ps, 1, 0);
+	// printf("Etape 1 finie\n");
 	nb_ins += 2;
-	while (pile_size(ps->pile_a) > 3)
-		nb_ins += next_moove(&ps->pile_a, &ps->pile_b);
+	while (ps->pile_a_s > 3)
+		nb_ins += next_moove(ps, 0);
+	// printf("Etape 2 finie\n");
 	sl2 = sort_list(ps->pile_a);
 	if (!sl2)
 		return (-1);
 	tmp = small_algo_ps(ps, sl2);
+	// printf("Etape 3 finie\n");
 	if (tmp == -1)
 		return (free(sl2), (-1));
 	nb_ins += tmp;
-	while (pile_size(ps->pile_b) > 0)
-		nb_ins += next_moove(&ps->pile_b, &ps->pile_a);
+	while (ps->pile_b_s > 0)
+		nb_ins += next_moove(ps, 1);
+	// printf("Etape 4 finie\n");
 	free(sl2);
 	nb_ins += last_moove(&ps->pile_a);
+	// printf("Sortie de l'algo\n");
     return (nb_ins);
 }
