@@ -6,7 +6,7 @@
 /*   By: glions <glions@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 14:51:47 by glions            #+#    #+#             */
-/*   Updated: 2024/02/22 19:04:24 by glions           ###   ########.fr       */
+/*   Updated: 2024/02/23 19:22:49 by glions           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ static int	verif_number(char *str, int size)
 
 	i = 0;
 	if (size == 0)
+		return (0);
+	if (size > 1 && str[0] == '0')
 		return (0);
 	if (str[0] != '-' && !verif_limit(str, size, "2147483647"))
 		return (0);
@@ -85,13 +87,12 @@ t_pile	*parsing_1(int ac, char **av)
 		{
 			new = pile_new(ft_atoi(av[i]), 'a');
 			if (!new)
-				return (printf("error malloc new\n"), pile_free(pile), NULL);
+				return (pile_free(pile), NULL);
 			if (!pile_addback(&pile, new))
-				return (printf("error addback\n"), free(new), pile_free(pile),
-					NULL);
+				return (free(new), pile_free(pile), NULL);
 		}
 		else
-			return (printf("error verif number\n"), pile_free(pile), (NULL));
+			return (pile_free(pile), (NULL));
 		i++;
 	}
 	return (pile);

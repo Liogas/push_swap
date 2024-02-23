@@ -6,7 +6,7 @@
 /*   By: glions <glions@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 17:41:46 by glions            #+#    #+#             */
-/*   Updated: 2024/02/23 18:59:11 by glions           ###   ########.fr       */
+/*   Updated: 2024/02/23 20:02:02 by glions           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,15 @@ static int	get_target(t_pile *p1, t_pile *p2)
 	int		find;
 	t_pile	*tmp;
 
+	// printf("Entrée dans get_target avec %d\n", p1->value);
 	find = 0;
 	min = p2->value;
 	tmp = p2;
 	while (tmp)
 	{
+		// printf("tmp->%d\n",tmp->value);
 		if (p1->value < tmp->value &&
-			(find == 0 || (find == 1 && tmp->value > target)))
+			(find == 0 || (find == 1 && tmp->value < target)))
 			{
 				target = tmp->value;
 				find = 1;
@@ -34,7 +36,8 @@ static int	get_target(t_pile *p1, t_pile *p2)
 			min = tmp->value;
 		tmp = tmp->next;
 	}
-	if (!find)
+	// printf("FIND->%d\n", find);
+	if (find == 0)
 		return (min);	
 	return (target);
 }
@@ -204,6 +207,7 @@ static int	next_moove(t_push_swap *ps, int mode)
 	t_pile	*winner;
 	long	ins_min;
 	int		target;
+	int		target_b;
 	int		ins_nb;
 
 	if (mode == 0)
@@ -221,20 +225,23 @@ static int	next_moove(t_push_swap *ps, int mode)
 	while (tmp)
 	{
 		target = get_target(tmp, p2);
+		// printf("target(tmp->%d)->%d\n", tmp->value, target);
 		ins_nb = get_ins_nb(tmp->value, target, p1, p2);
+		// printf("Nombre de coups->%d\n", ins_nb);
 		if (ins_nb < ins_min)
 		{
+			target_b = target;
 			winner = tmp;
-			if (ins_nb == 1)
+			if (ins_nb == 0)
 				break;
 			ins_min = ins_nb;
 		}
 		tmp = tmp->next;
 	}
 	if (mode == 0)
-		mooves(winner->value, target, &ps->pile_a, &ps->pile_b);
+		mooves(winner->value, target_b, &ps->pile_a, &ps->pile_b);
 	else
-		mooves(winner->value, target, &ps->pile_b, &ps->pile_a);
+		mooves(winner->value, target_b, &ps->pile_b, &ps->pile_a);
 	return (ps_ins_p(ps, 1, mode), ins_min);
 }
 static int	last_moove(t_pile **p)
@@ -275,7 +282,13 @@ int	big_algo_ps(t_push_swap *ps)
 	// printf("Etape 1 finie\n");
 	nb_ins += 2;
 	while (ps->pile_a_s > 3)
+	{
 		nb_ins += next_moove(ps, 0);
+		// printf("Liste a\n");
+		// pile_show(ps->pile_a);
+		// printf("Liste b\n");
+		// pile_show(ps->pile_b);
+	}
 	// printf("Etape 2 finie\n");
 	sl2 = sort_list(ps->pile_a);
 	if (!sl2)
@@ -286,10 +299,20 @@ int	big_algo_ps(t_push_swap *ps)
 		return (free(sl2), (-1));
 	nb_ins += tmp;
 	while (ps->pile_b_s > 0)
+	{
 		nb_ins += next_moove(ps, 1);
+		// printf("Liste a\n");
+		// pile_show(ps->pile_a);
+		// printf("Liste b\n");
+		// pile_show(ps->pile_b);
+	}
 	// printf("Etape 4 finie\n");
 	free(sl2);
 	nb_ins += last_moove(&ps->pile_a);
+	// printf("PILE A\n");
+	// pile_show(ps->pile_a);
+	// printf("PILE B\n");
+	// pile_show(ps->pile_b);
 	// printf("Sortie de l'algo\n");
     return (nb_ins);
 }
