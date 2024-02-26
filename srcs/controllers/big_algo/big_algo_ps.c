@@ -6,13 +6,43 @@
 /*   By: glions <glions@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 17:41:46 by glions            #+#    #+#             */
-/*   Updated: 2024/02/23 20:02:02 by glions           ###   ########.fr       */
+/*   Updated: 2024/02/26 12:42:06 by glions           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/push_swap.h"
 
-static int	get_target(t_pile *p1, t_pile *p2)
+static int	get_target_pb(t_pile *p1, t_pile *p2)
+{
+	int		target;
+	int		max;
+	int		find;
+	t_pile	*tmp;
+
+	// printf("Entrée dans get_target avec %d\n", p1->value);
+	find = 0;
+	max = p2->value;
+	tmp = p2;
+	while (tmp)
+	{
+		// printf("tmp->%d\n",tmp->value);
+		if (p1->value > tmp->value &&
+			(find == 0 || (find == 1 && tmp->value > target)))
+			{
+				target = tmp->value;
+				find = 1;
+			}
+		if (tmp->value > max)
+			max = tmp->value;
+		tmp = tmp->next;
+	}
+	// printf("FIND->%d\n", find);
+	if (find == 0)
+		return (max);	
+	return (target);
+}
+
+static int	get_target_pa(t_pile *p1, t_pile *p2)
 {
 	int		target;
 	int		min;
@@ -62,6 +92,8 @@ static int	ins_nb_top(int target, int mode, t_pile *p)
 {
 	int		pos;
 
+	if (p->value == target)
+		return (0);
 	pos = pile_getpos(target, p);
 	if (mode == 1)
 		return (pos - 1);
@@ -77,11 +109,11 @@ static int	ins_same(int target[2], int mode, t_pile *p1, t_pile *p2)
 
 	ins_p1 = ins_nb_top(target[0], mode, p1);
 	ins_p2 = ins_nb_top(target[1], mode, p2);
-	ins_tot = ins_p1 - ins_p2;
-	if (ins_tot < 0)
-		ins_tot = (ins_tot * -1) + ins_p1;
+	if (ins_p1 < ins_p2)
+		ins_tot = ins_p2 - ins_p1 + ins_p1;
 	else
-		ins_tot += ins_p2;
+		ins_tot = ins_p1 - ins_p2 + ins_p2;
+	// printf("Sortie de ins_same->%d\n", ins_tot);
 	return (ins_tot);
 }
 static int	get_ins_nb(int t1, int t2, t_pile *p1, t_pile *p2)
@@ -90,14 +122,14 @@ static int	get_ins_nb(int t1, int t2, t_pile *p1, t_pile *p2)
 	int	targets[2];
 
 	ins_nb = ins_nb_top(t1, 1, p1) + ins_nb_top(t2, 1, p2);
-	targets[0] = t1;
-	targets[1] = t2;
 	if (ins_nb_top(t1, 1, p1) + ins_nb_top(t2, 2, p2) < ins_nb)
 		ins_nb = ins_nb_top(t1, 1, p1) + ins_nb_top(t2, 2, p2);
 	if (ins_nb_top(t1, 2, p1) + ins_nb_top(t2, 1, p2) < ins_nb)
 		ins_nb = ins_nb_top(t1, 2, p1) + ins_nb_top(t2, 1, p2);
 	if (ins_nb_top(t1, 2, p1) + ins_nb_top(t2, 2, p2) < ins_nb)
 		ins_nb = ins_nb_top(t1, 2, p1) + ins_nb_top(t2, 2, p2);
+	targets[0] = t1;
+	targets[1] = t2;
 	if (ins_same(targets, 1, p1, p2) < ins_nb)
 		ins_nb = ins_same(targets, 1, p1, p2);
 	if (ins_same(targets, 2, p1, p2) < ins_nb)
@@ -115,37 +147,38 @@ static int	*get_ins_mode(int t1, int t2, t_pile *p1, t_pile *p2)
 	if (!mode)
 		return (NULL);
 	ins_nb = ins_nb_top(t1, 1, p1) + ins_nb_top(t2, 1, p2);
-	mode[0] = 0;
-	mode[1] = 0;
+	mode[0] = 1;
+	mode[1] = 1;
 	targets[0] = t1;
 	targets[1] = t2;
 	if (ins_nb_top(t1, 1, p1) + ins_nb_top(t2, 2, p2) < ins_nb)
 	{
 		ins_nb = ins_nb_top(t1, 1, p1) + ins_nb_top(t2, 2, p2);
-		mode[1] = 1;
+		mode[1] = 2;
 	}
 	if (ins_nb_top(t1, 2, p1) + ins_nb_top(t2, 1, p2) < ins_nb)
 	{
 		ins_nb = ins_nb_top(t1, 2, p1) + ins_nb_top(t2, 1, p2);
-		mode[0] = 1;
-		mode[1] = 0; 
+		mode[0] = 2;
+		mode[1] = 1; 
 	}
 	if (ins_nb_top(t1, 2, p1) + ins_nb_top(t2, 2, p2) < ins_nb)
 	{
 		ins_nb = ins_nb_top(t1, 2, p1) + ins_nb_top(t2, 2, p2);
-		mode[0] = 1;
-		mode[1] = 1;
+		mode[0] = 2;
+		mode[1] = 2;
 	}
 	if (ins_same(targets, 1, p1, p2) < ins_nb)
 	{
 		ins_nb = ins_same(targets, 1, p1, p2);
-		mode[0] = 2;
+		mode[0] = 3;
 	}
 	if (ins_same(targets, 2, p1, p2) < ins_nb)
 	{
 		ins_nb = ins_same(targets, 2, p1, p2);
-		mode[0] = 3;
+		mode[0] = 4;
 	}
+	// printf("Mode enregistree = %d|%d\n", mode[0], mode[1]);
 	return (mode);
 }
 
@@ -153,7 +186,7 @@ static void	mooves_p(t_pile **p, int t, int mode)
 {
 	while ((*p)->value != t)
 	{
-		if (mode == 0)
+		if (mode == 1)
 			ins_r(p, 1);
 		else
 			ins_rr(p, 1);
@@ -171,7 +204,7 @@ static void	mooves(int t1, int t2, t_pile **p1, t_pile **p2)
 		return ;
 	if (mode[0] == 0 || mode[0] == 1)
 		(mooves_p(p1, t1, mode[1]), mooves_p(p2, t2, mode[1]));
-	else if (mode[0] == 2 || mode[0] == 3)
+	else if (mode[0] == 3 || mode[0] == 4)
 	{
 		while ((*p1)->value != t1 && (*p2)->value != t2)
 		{
@@ -210,6 +243,7 @@ static int	next_moove(t_push_swap *ps, int mode)
 	int		target_b;
 	int		ins_nb;
 
+	// printf("Nouveau mouvement\n");
 	if (mode == 0)
 	{
 		p1 = ps->pile_a;
@@ -224,7 +258,10 @@ static int	next_moove(t_push_swap *ps, int mode)
 	tmp = p1;
 	while (tmp)
 	{
-		target = get_target(tmp, p2);
+		if (mode == 0)
+			target = get_target_pb(tmp, p2);
+		else
+			target = get_target_pa(tmp, p2);
 		// printf("target(tmp->%d)->%d\n", tmp->value, target);
 		ins_nb = get_ins_nb(tmp->value, target, p1, p2);
 		// printf("Nombre de coups->%d\n", ins_nb);
@@ -238,6 +275,7 @@ static int	next_moove(t_push_swap *ps, int mode)
 		}
 		tmp = tmp->next;
 	}
+	// printf("Meilleur choix->t1->%d, t2->%d", winner->value, target_b);
 	if (mode == 0)
 		mooves(winner->value, target_b, &ps->pile_a, &ps->pile_b);
 	else
