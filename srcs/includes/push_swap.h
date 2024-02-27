@@ -6,7 +6,7 @@
 /*   By: glions <glions@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 12:14:55 by glions            #+#    #+#             */
-/*   Updated: 2024/02/23 18:54:46 by glions           ###   ########.fr       */
+/*   Updated: 2024/02/27 11:01:57 by glions           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void				sort_show(int *tab, int size);
 int					*sort_list(t_pile *p);
 
 int 				small_algo_ps(t_push_swap *ps, int *exp);
-int					big_algo_ps(t_push_swap *ps);
+int					big_algo(t_push_swap *ps);
 
 
 #endif

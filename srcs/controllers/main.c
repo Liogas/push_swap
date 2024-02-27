@@ -6,7 +6,7 @@
 /*   By: glions <glions@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 14:41:45 by glions            #+#    #+#             */
-/*   Updated: 2024/02/23 18:36:21 by glions           ###   ########.fr       */
+/*   Updated: 2024/02/27 11:01:43 by glions           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	algo(t_push_swap *ps)
 			return (free(sl), nb_ins);
 		return (free(sl), 0);
 	}
-	return (free(sl), big_algo_ps(ps));
+	return (free(sl), big_algo(ps));
 }
 
 int	main(int ac, char **av)
