@@ -6,7 +6,7 @@
 /*   By: glions <glions@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 12:14:55 by glions            #+#    #+#             */
-/*   Updated: 2024/02/27 11:01:57 by glions           ###   ########.fr       */
+/*   Updated: 2024/02/28 16:00:33 by glions           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,9 @@ int					*sort_list(t_pile *p);
 
 int 				small_algo_ps(t_push_swap *ps, int *exp);
 int					big_algo(t_push_swap *ps);
+
+// int					get_target_b(int value, t_pile *p);
+// int					get_target_a(int value, t_pile *p);
 
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: glions <glions@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 18:46:21 by glions            #+#    #+#             */
-/*   Updated: 2024/02/22 18:59:08 by glions           ###   ########.fr       */
+/*   Updated: 2024/02/28 10:36:07 by glions           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ int small_algo_ps(t_push_swap *ps, int *sl)
 {
     int *moove;
 
+	if (pile_issort(ps->pile_a, sl))
+		return (0);
     moove = get_moove(ps->pile_a, sl);
     if (!moove)
         return (-1);
