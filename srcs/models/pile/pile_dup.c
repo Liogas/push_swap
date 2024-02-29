@@ -6,7 +6,7 @@
 /*   By: glions <glions@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 19:14:18 by glions            #+#    #+#             */
-/*   Updated: 2024/02/22 20:07:02 by glions           ###   ########.fr       */
+/*   Updated: 2024/02/29 17:06:54 by glions           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_pile	*pile_dup(t_pile *p)
 	t_pile	*new_p;
 	t_pile	*tmp;
 	t_pile	*new;
-	
+
 	tmp = p;
 	new_p = pile_new(tmp->value, 'c');
 	if (!new_p)

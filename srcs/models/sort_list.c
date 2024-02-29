@@ -6,7 +6,7 @@
 /*   By: glions <glions@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 16:10:41 by glions            #+#    #+#             */
-/*   Updated: 2024/02/20 16:15:08 by glions           ###   ########.fr       */
+/*   Updated: 2024/02/29 17:08:23 by glions           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	swap(int *a, int *b)
 {
-	int tmp;
+	int	tmp;
 
 	tmp = *a;
 	*a = *b;
@@ -34,9 +34,8 @@ int	*sort_list(t_pile *p)
 	i = 0;
 	while (tmp)
 	{
-		tab[i] = tmp->value;
+		tab[i++] = tmp->value;
 		tmp = tmp->next;
-		i++;
 	}
 	i = 0;
 	while (i < pile_size(p) - 1)
@@ -48,5 +47,5 @@ int	*sort_list(t_pile *p)
 		}
 		i++;
 	}
-	return tab;
+	return (tab);
 }

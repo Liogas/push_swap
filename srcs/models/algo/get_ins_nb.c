@@ -6,52 +6,11 @@
 /*   By: glions <glions@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 14:05:10 by glions            #+#    #+#             */
-/*   Updated: 2024/02/29 16:57:07 by glions           ###   ########.fr       */
+/*   Updated: 2024/02/29 18:13:17 by glions           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/push_swap.h"
-
-int	ins_cost(t_pile *p, int	target, int mode)
-{
-	int	pos;
-	
-	pos = pile_getpos(target, p);
-	if (mode == 1)
-		return (pos - 1);
-	else
-		return (pile_size(p) - pos + 1);
-}
-
-static int	get_ins_rrr(t_pile *p1, t_pile *p2, int t1, int t2)
-{
-	int	ins_p1;
-	int	ins_p2;
-
-	ins_p1 = ins_cost(p1, t1, 2);
-	ins_p2 = ins_cost(p2, t2, 2);
-	if (ins_p1 == 0 || ins_p2 == 0)
-		return (-1);
-	if (ins_p1 < ins_p2)
-		return (ins_p2);
-	else
-		return (ins_p1);
-}
-
-static int	get_ins_rr(t_pile *p1, t_pile *p2, int t1, int t2)
-{
-	int	ins_p1;
-	int	ins_p2;
-
-	ins_p1 = ins_cost(p1, t1, 1);
-	ins_p2 = ins_cost(p2, t2, 1);
-	if (ins_p1 == 0 || ins_p2 == 0)
-		return (-1);
-	if (ins_p1 < ins_p2)
-		return (ins_p2);
-	else
-		return (ins_p1);
-}
 
 void	verif_cmp(int nb_ins, int **data)
 {
@@ -70,7 +29,7 @@ void	verif_cmp(int nb_ins, int **data)
 void	verif_rrr_rr(int **data, t_pile *p1, t_pile *p2, int t[2])
 {
 	int	tmp;
-	
+
 	(*data)[0] = get_ins_rr(p1, p2, t[0], t[1]);
 	(*data)[2] = -1;
 	(*data)[3] = -1;
@@ -87,7 +46,7 @@ void	verif_rrr_rr(int **data, t_pile *p1, t_pile *p2, int t[2])
 void	verif_r_rr(int **data, t_pile *p1, t_pile *p2, int t[2])
 {
 	int	tmp;
-	
+
 	if (ins_cost(p1, t[0], 1) < ins_cost(p1, t[0], 2))
 	{
 		(*data)[2] = 1;
@@ -115,7 +74,7 @@ int	*get_ins_nb(t_pile *p1, t_pile *p2, int t1, int t2)
 {
 	int	*data;
 	int	t[2];
-	
+
 	data = malloc(4 * sizeof(int));
 	if (!data)
 		return (NULL);

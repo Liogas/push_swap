@@ -6,7 +6,7 @@
 /*   By: glions <glions@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 15:18:39 by glions            #+#    #+#             */
-/*   Updated: 2024/02/22 20:07:53 by glions           ###   ########.fr       */
+/*   Updated: 2024/02/29 17:07:39 by glions           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,11 @@ static void	reverse_rotate(t_pile **p)
 	while (tmp->next)
 	{
 		previous = tmp;
-		tmp = tmp->next;	
+		tmp = tmp->next;
 	}
 	previous->next = 0;
 	tmp->next = *p;
 	*p = tmp;
-	
 }
 
 void	ins_rr(t_pile **p, int show)

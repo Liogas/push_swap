@@ -6,7 +6,7 @@
 /*   By: glions <glions@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 14:04:10 by glions            #+#    #+#             */
-/*   Updated: 2024/02/28 15:36:21 by glions           ###   ########.fr       */
+/*   Updated: 2024/02/29 17:06:49 by glions           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	get_target_a(int value, t_pile *p)
 {
-	t_pile *tmp;
+	t_pile	*tmp;
 	int		min;
 	int		target;
 	int		find;
@@ -40,7 +40,7 @@ int	get_target_a(int value, t_pile *p)
 
 int	get_target_b(int value, t_pile *p)
 {
-	t_pile *tmp;
+	t_pile	*tmp;
 	int		max;
 	int		target;
 	int		find;

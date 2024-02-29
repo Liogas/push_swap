@@ -6,7 +6,7 @@
 /*   By: glions <glions@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 16:01:06 by glions            #+#    #+#             */
-/*   Updated: 2024/02/20 16:05:19 by glions           ###   ########.fr       */
+/*   Updated: 2024/02/29 18:27:47 by glions           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	sort_show(int *tab, int size)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	while (i < size)

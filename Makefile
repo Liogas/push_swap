@@ -7,7 +7,7 @@ SRCS				= 	srcs/models/pile/*.c \
 						srcs/models/*.c \
 						srcs/models/pile_instruction/*.c \
 						srcs/models/push_swap/*.c \
-						srcs/models/algo/get_ins_nb.c \
+						srcs/models/algo/*.c \
 						srcs/controllers/*.c \
 						srcs/controllers/parsing/*.c \
 						srcs/controllers/small_algo/*.c \

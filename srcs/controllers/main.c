@@ -6,14 +6,14 @@
 /*   By: glions <glions@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 14:41:45 by glions            #+#    #+#             */
-/*   Updated: 2024/02/29 16:48:44 by glions           ###   ########.fr       */
+/*   Updated: 2024/02/29 17:08:39 by glions           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
 static int	algo(t_push_swap *ps)
-{	
+{
 	int	*sl;
 	int	nb_ins;
 
