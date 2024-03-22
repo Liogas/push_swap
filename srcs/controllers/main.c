@@ -6,7 +6,7 @@
 /*   By: glions <glions@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 14:41:45 by glions            #+#    #+#             */
-/*   Updated: 2024/02/29 17:08:39 by glions           ###   ########.fr       */
+/*   Updated: 2024/03/22 10:58:41 by glions           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,9 @@ static int	algo(t_push_swap *ps)
 	{
 		nb_ins = small_algo_ps(ps, sl);
 		if (pile_issort(ps->pile_a, sl))
+		{
 			return (free(sl), nb_ins);
+		}
 		return (free(sl), 0);
 	}
 	return (free(sl), big_algo(ps));

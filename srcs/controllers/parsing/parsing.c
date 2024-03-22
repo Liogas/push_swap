@@ -6,7 +6,7 @@
 /*   By: glions <glions@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 14:51:47 by glions            #+#    #+#             */
-/*   Updated: 2024/02/29 17:06:46 by glions           ###   ########.fr       */
+/*   Updated: 2024/03/22 09:23:55 by glions           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ static int	verif_limit(char *str, int size, char *limit)
 	if (size < size_max)
 		return (1);
 	i = 0;
+	while (str[i] && str[i] == '0' && i < size)
+		i++;
 	while (str[i] && i < size)
 	{
 		if (str[i] > limit[i])
@@ -39,12 +41,12 @@ static int	verif_number(char *str, int size)
 	i = 0;
 	if (size == 0)
 		return (0);
-	if (size > 1 && str[0] == '0')
-		return (0);
 	if (str[0] != '-' && !verif_limit(str, size, "2147483647"))
 		return (0);
 	if (str[0] == '-' && !verif_limit(str, size, "-2147483648"))
 		return (0);
+	while (str[i] && str[i] == '0')
+		i++;
 	while (str[i] && i < size)
 	{
 		if (str[i] == '-' && i > 0)
@@ -83,7 +85,7 @@ t_pile	*parsing_1(int ac, char **av)
 	pile = NULL;
 	while (i < ac)
 	{
-		if (verif_number(av[i], ft_strlen(av[i])))
+		if (verif_number(av[i], ft_strlen_without_c('0', av[i])))
 		{
 			new = pile_new(ft_atoi(av[i]), 'a');
 			if (!new)

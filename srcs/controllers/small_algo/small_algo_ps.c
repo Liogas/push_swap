@@ -6,7 +6,7 @@
 /*   By: glions <glions@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 18:46:21 by glions            #+#    #+#             */
-/*   Updated: 2024/02/29 18:24:17 by glions           ###   ########.fr       */
+/*   Updated: 2024/03/22 10:58:33 by glions           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,10 @@ int	small_algo_ps(t_push_swap *ps, int *sl)
 	int	*moove;
 
 	if (pile_issort(ps->pile_a, sl))
+	{
+		pile_show(ps->pile_a);
 		return (0);
+	}
 	moove = get_moove(ps->pile_a, sl);
 	if (!moove)
 		return (-1);
@@ -86,7 +89,7 @@ int	small_algo_ps(t_push_swap *ps, int *sl)
 	{
 		if (moove[2] == 0)
 			return (free(moove), ins_s(&ps->pile_a, 1), (1));
-		return (free(moove), ins_r(&ps->pile_a, 1), (1));
+		return (free(moove), ins_rr(&ps->pile_a, 1), (1));
 	}
 	return (-1);
 }
