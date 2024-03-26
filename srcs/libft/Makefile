@@ -65,14 +65,14 @@ OBJS		=	$(SRCS:.c=.o)
 NAME		=	libft.a
 AR			=	ar -rcsv
 
-%.o: %.c
-	@$(CC) $(CFLAGS) -o $@ -c $^
 
 all: $(NAME)
 
+%.o: %.c
+	@$(CC) $(CFLAGS) -o $@ -c $^
+
 $(NAME): $(OBJS)
 	@$(AR) $(NAME) $(OBJS)
-	mv ./libft.a ../libs/libft.a
 
 clean: 
 	rm -f $(OBJS)

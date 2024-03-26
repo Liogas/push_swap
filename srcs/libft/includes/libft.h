@@ -6,7 +6,7 @@
 /*   By: glions <glions@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 11:52:49 by glions            #+#    #+#             */
-/*   Updated: 2024/03/22 09:12:10 by glions           ###   ########.fr       */
+/*   Updated: 2024/03/26 13:20:55 by glions           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void				*ft_memchr(const void *s, int c, size_t n);
 
 // STR
 size_t				ft_strlen(char *str);
-int					ft_strlen_without_c(char c, char *str);
+int					ft_strlen_skip_c(char c, char *str);
 int					ft_memcmp(const void *s1, const void *s2, size_t n);
 size_t				ft_strlcpy(char *dst, const char *src, size_t size);
 size_t				ft_strlcat(char *dst, const char *src, size_t size);

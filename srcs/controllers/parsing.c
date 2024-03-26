@@ -6,11 +6,11 @@
 /*   By: glions <glions@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 14:51:47 by glions            #+#    #+#             */
-/*   Updated: 2024/03/22 09:23:55 by glions           ###   ########.fr       */
+/*   Updated: 2024/03/26 13:21:28 by glions           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/push_swap.h"
+#include "../includes/push_swap.h"
 
 static int	verif_limit(char *str, int size, char *limit)
 {
@@ -85,7 +85,7 @@ t_pile	*parsing_1(int ac, char **av)
 	pile = NULL;
 	while (i < ac)
 	{
-		if (verif_number(av[i], ft_strlen_without_c('0', av[i])))
+		if (verif_number(av[i], ft_strlen_skip_c('0', av[i])))
 		{
 			new = pile_new(ft_atoi(av[i]), 'a');
 			if (!new)

@@ -6,11 +6,11 @@
 /*   By: glions <glions@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 13:47:31 by glions            #+#    #+#             */
-/*   Updated: 2024/03/22 11:00:39 by glions           ###   ########.fr       */
+/*   Updated: 2024/03/26 12:50:43 by glions           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/push_swap.h"
+#include "../includes/push_swap.h"
 
 static void	mooves(t_pile **p1, t_pile **p2, int data[6])
 {

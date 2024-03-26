@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   small_algo_ps.c                                    :+:      :+:    :+:   */
+/*   small_algo.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: glions <glions@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/21 18:46:21 by glions            #+#    #+#             */
-/*   Updated: 2024/03/22 10:58:33 by glions           ###   ########.fr       */
+/*   Created: 2024/03/26 12:50:24 by glions            #+#    #+#             */
+/*   Updated: 2024/03/26 13:00:27 by glions           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/push_swap.h"
+#include "../includes/push_swap.h"
 
 void	get_moove_next(t_pile *pile, int **moove, int *sl, int i)
 {
@@ -68,10 +68,7 @@ int	small_algo_ps(t_push_swap *ps, int *sl)
 	int	*moove;
 
 	if (pile_issort(ps->pile_a, sl))
-	{
-		pile_show(ps->pile_a);
 		return (0);
-	}
 	moove = get_moove(ps->pile_a, sl);
 	if (!moove)
 		return (-1);

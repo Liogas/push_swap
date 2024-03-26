@@ -1,18 +1,38 @@
 CC					=	cc
 CFLAGS				=	-Wall -Werror -Wextra
 
-LIBFT				=	./libs/libft.a
+LIBFT				=	./libft/libft.a
 
-SRCS				= 	srcs/models/pile/*.c \
-						srcs/models/*.c \
-						srcs/models/pile_instruction/*.c \
-						srcs/models/push_swap/*.c \
-						srcs/models/algo/*.c \
-						srcs/controllers/*.c \
-						srcs/controllers/parsing/*.c \
-						srcs/controllers/small_algo/*.c \
-						srcs/controllers/big_algo/*.c \
-						srcs/views/*.c
+PATH_CONTROLLERS	=	./srcs/controllers
+PATH_MODELS			=	./srcs/models
+PATH_VIEWS			=	./srcs/views
+
+SRCS				=	$(PATH_CONTROLLERS)/main.c \
+						$(PATH_CONTROLLERS)/big_algo.c \
+						$(PATH_CONTROLLERS)/parsing.c \
+						$(PATH_CONTROLLERS)/small_algo.c \
+\
+						$(PATH_MODELS)/algo/algo_utils.c \
+						$(PATH_MODELS)/algo/get_ins_nb.c \
+						$(PATH_MODELS)/algo/get_target.c \
+						$(PATH_MODELS)/algo/ins_utils.c \
+						$(PATH_MODELS)/pile/pile_addback.c \
+						$(PATH_MODELS)/pile/pile_free.c \
+						$(PATH_MODELS)/pile/pile_getpos.c \
+						$(PATH_MODELS)/pile/pile_issort.c \
+						$(PATH_MODELS)/pile/pile_new.c \
+						$(PATH_MODELS)/pile/pile_size.c \
+						$(PATH_MODELS)/pile_instruction/pile_push.c \
+						$(PATH_MODELS)/pile_instruction/pile_reverse_rotate.c \
+						$(PATH_MODELS)/pile_instruction/pile_rotate.c \
+						$(PATH_MODELS)/pile_instruction/pile_swap.c \
+						$(PATH_MODELS)/push_swap/push_swap_free.c \
+						$(PATH_MODELS)/push_swap/push_swap_new.c \
+						$(PATH_MODELS)/push_swap/push_swap_set_size.c \
+						$(PATH_MODELS)/sort_list.c \
+\
+						$(PATH_VIEWS)/print_error.c \
+						$(PATH_VIEWS)/sort_show.c
 
 NAME				=	push_swap
 
@@ -21,15 +41,16 @@ all: $(NAME)
 $(LIBFT):
 	@make -C srcs/libft/
 
-$(NAME): $(LIBFT) $(MINILIBX)
-	@$(CC) -g3 -o $(NAME) $(CFLAGS) $(SRCS) -L./srcs/libs -lft;
+$(NAME): $(LIBFT)
+	@$(CC) -g3 -o $(NAME) $(CFLAGS) $(SRCS) -L./srcs/libft -lft;
 
 clean:
-	rm -f srcs/*/*.o srcs/*/*/*.o srcs/*/*/*/*.o
+	rm -f ./srcs/models/*.o ./srcs/models/*/*.o ./srcs/controllers/*.o ./srcs/views/*.o 
 
 fclean: clean
-	rm -f srcs/libs/*.a *.out $(NAME)
+	make -C ./srcs/libft/ fclean
+	rm -f $(NAME)
 
 re:	fclean $(NAME)
 
-.PHONY:	all clean fclean test test_v re
+.PHONY:	all clean fclean push_swap re
