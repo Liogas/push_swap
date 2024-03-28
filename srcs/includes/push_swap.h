@@ -6,7 +6,7 @@
 /*   By: glions <glions@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 12:14:55 by glions            #+#    #+#             */
-/*   Updated: 2024/02/29 18:25:08 by glions           ###   ########.fr       */
+/*   Updated: 2024/03/28 13:06:50 by glions           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ t_pile				*parsing_2(char *str);
 
 t_pile				*pile_new(int nb, char id);
 int					pile_addback(t_pile **pile, t_pile *new);
+int					pile_already_in(t_pile *p, t_pile *n);
 void				pile_free(t_pile *pile);
 void				pile_show(t_pile *pile);
 int					pile_size(t_pile *p);

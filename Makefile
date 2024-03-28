@@ -17,6 +17,7 @@ SRCS				=	$(PATH_CONTROLLERS)/main.c \
 						$(PATH_MODELS)/algo/get_target.c \
 						$(PATH_MODELS)/algo/ins_utils.c \
 						$(PATH_MODELS)/pile/pile_addback.c \
+						$(PATH_MODELS)/pile/pile_already_in.c \
 						$(PATH_MODELS)/pile/pile_free.c \
 						$(PATH_MODELS)/pile/pile_getpos.c \
 						$(PATH_MODELS)/pile/pile_issort.c \
@@ -53,4 +54,4 @@ fclean: clean
 
 re:	fclean $(NAME)
 
-.PHONY:	all clean fclean push_swap re
+.PHONY:	all clean fclean re

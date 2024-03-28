@@ -6,11 +6,26 @@
 /*   By: glions <glions@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 14:41:45 by glions            #+#    #+#             */
-/*   Updated: 2024/03/22 10:58:41 by glions           ###   ########.fr       */
+/*   Updated: 2024/03/28 13:08:13 by glions           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
+
+void	pile_show(t_pile *pile)
+{
+	t_pile	*p;
+	int		i;
+
+	p = pile;
+	i = 1;
+	while (p)
+	{
+		printf("[%d]->value = %d\n", i, p->value);
+		p = p->next;
+		i++;
+	}
+}
 
 static int	algo(t_push_swap *ps)
 {
@@ -44,7 +59,7 @@ int	main(int ac, char **av)
 	t_push_swap	*ps;
 
 	if (ac < 2)
-		return ((1));
+		return (print_error(), (1));
 	ps = push_swap_new();
 	if (!ps)
 		return (1);

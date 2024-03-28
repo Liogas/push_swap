@@ -1,35 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pile_addback.c                                     :+:      :+:    :+:   */
+/*   pile_already_in.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: glions <glions@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/16 14:21:41 by glions            #+#    #+#             */
-/*   Updated: 2024/03/28 13:07:13 by glions           ###   ########.fr       */
+/*   Created: 2024/03/28 13:04:19 by glions            #+#    #+#             */
+/*   Updated: 2024/03/28 13:09:08 by glions           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/push_swap.h"
 
-int	pile_addback(t_pile **pile, t_pile *new)
+int	pile_already_in(t_pile *p, t_pile *n)
 {
-	t_pile	*lst;
+	t_pile	*tmp;
 
-	if (!new)
-		return (0);
-	if (pile_already_in(*pile, new))
-		return (0);
-	if (!*pile)
-		*pile = new;
-	else
+	tmp = p;
+	while (tmp)
 	{
-		lst = *pile;
-		while (lst->next)
-		{
-			lst = lst->next;
-		}
-		lst->next = new;
+		if (tmp->value == n->value)
+			return (1);
+		tmp = tmp->next;
 	}
-	return (1);
+	return (0);
 }
